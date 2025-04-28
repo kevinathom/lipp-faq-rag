@@ -3,6 +3,9 @@
 # Data files
 /data/*
 
+# Environment variables
+*.env
+
 
 ## Python ##
 
