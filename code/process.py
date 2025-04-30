@@ -31,15 +31,15 @@ model_embed = 'BAAI/bge-small-en-v1.5'
 
 Settings.embed_model = HuggingFaceEmbedding(model_name=model_embed)
 Settings.llm = None
-"""
-## Based on fixed context window
-Settings.chunk_size = 150
-Settings.chunk_overlap = 20
-index = VectorStoreIndex.from_documents(docs)
-"""
 
+## Based on fixed context window
+Settings.chunk_size = 600
+Settings.chunk_overlap = 50
+index = VectorStoreIndex.from_documents(docs)
+
+"""
 ## Based on HTML tags
-parser = HTMLNodeParser(tags = ['title', 'p', 'ul', 'ol', 'li'])
+parser = HTMLNodeParser(tags = ['title', 'p', 'ul', 'ol'])
 
 def create_html_based_index(docs):#: List[Document]):
     # Extract nodes from all documents
@@ -53,17 +53,21 @@ def create_html_based_index(docs):#: List[Document]):
     return index
 
 index = create_html_based_index(docs)
-
+"""
 
 # Retrieval system
-top_k = 5 # Documents to retrieve
-similarity_cutoff = .6 # Minimum document similarity
+top_k = 3 # Documents to retrieve
+similarity_cutoff = .5 # Minimum document similarity
 
 retriever = VectorIndexRetriever(
   index=index,
   similarity_top_k=top_k,
-  similarity_cutoff=similarity_cutoff)
-query_engine = RetrieverQueryEngine(retriever=retriever, node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=similarity_cutoff)],)
+  similarity_cutoff=similarity_cutoff,
+  )
+query_engine = RetrieverQueryEngine(
+  retriever=retriever,
+  node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=similarity_cutoff)],
+  )
 
 
 # Demo queries
@@ -73,9 +77,11 @@ query = 'Where can I find market research reports?'
 #query = 'Am I an orange?'
 
 
-# Vector response
-response = query_engine.query(query)
-print(response)
+# RAG context for LLM prompt
+context = 'Context:\n'
+for k in range(top_k):
+  context = context + response.source_nodes[k].text + '\n\n'
+print(context)
 
 
 # LLM prompt
@@ -86,14 +92,6 @@ Please respond to this request: {query}
 
 [/INST]
 """
-
-
-# RAG context for LLM prompt
-context = 'Context:\n'
-for k in range(top_k):
-  context = context + response.source_nodes[k].text + '\n\n'
-print(context)
-
 ragful_prompt = ragless_prompt + context
 
 
