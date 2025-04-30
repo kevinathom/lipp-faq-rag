@@ -48,4 +48,39 @@ top_k = 3 # Documents to retrieve
 similarity_cutoff = .5 # Minimum document similarity
 
 retriever = VectorIndexRetriever(index=index, similarity_top_k=top_k)
-query_engine = RetrieverQueryEngive(retriever=retriever, node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=similarity_cutoff)],)
+query_engine = RetrieverQueryEngine(retriever=retriever, node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=similarity_cutoff)],)
+
+
+# Demo query
+query = 'Where can I find market research reports?'
+
+
+# Vector response
+response = query_engine.query(query)
+print(response)
+
+
+# LLM prompt
+ragless_prompt = f"""
+[INST] As a virtual consultant for business research tasks, communicate in clear, accessible language. Provide names and links to relevant resources and suggest tips for navigating each resource named.
+
+Please respond to this request: {query}
+
+[/INST]
+"""
+
+
+# RAG context for LLM prompt
+context = 'Context:\n'
+for k in range(top_k):
+  context = context + response.source_nodes[k].text + '\n\n'
+print(context)
+
+ragful_prompt = ragless_prompt + context
+
+
+# Prompt the LLM
+client = InferenceClient(model='meta-llama/Llama-3.1-405B-Instruct', provider='nebius') # Llama 3.1-405B-Instruct
+
+completion = client.chat.completions.create(messages=[{'role': 'user', 'content': ragful_prompt}],)
+print(completion.choices[0].message.content)
