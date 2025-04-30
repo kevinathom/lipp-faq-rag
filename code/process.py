@@ -56,8 +56,8 @@ index = create_html_based_index(docs)
 """
 
 # Retrieval system
-top_k = 3 # Documents to retrieve
-similarity_cutoff = .5 # Minimum document similarity
+top_k = 4 # Documents to retrieve
+similarity_cutoff = .6 # Minimum document similarity
 
 retriever = VectorIndexRetriever(
   index=index,
@@ -72,9 +72,11 @@ query_engine = RetrieverQueryEngine(
 
 # Demo queries
 query = 'Where can I find market research reports?'
-#query = 'Get market size on medical implants for diabetes'
-#query = 'microsoft'
-#query = 'Am I an orange?'
+query = 'Get market size on medical implants for diabetes'
+query = """I’m a graduate student at Upenn, and I’m currently researching Orolay (the apparel company known for its “Amazon coat”). I’m trying to find the following information, ideally from 2012 to 2025 if available: Annual revenue (sales) of Orolay; Best-selling product(s); Information on Orolay’s main customer"""
+query = "can't access Pitchbook"
+query = 'microsoft'
+query = 'Am I an orange?'
 
 
 # RAG context for LLM prompt
@@ -90,6 +92,7 @@ ragless_prompt = f"""
 
 Please respond to this request: {query}
 
+End the response with this statement: "For further assistance, please contact a Lippincott Business Librarian at lippincott@wharton.upenn.edu."
 [/INST]
 """
 ragful_prompt = ragless_prompt + context
