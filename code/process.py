@@ -26,34 +26,50 @@ load_dotenv(dotenv_path=dir_project / '.env') # See HF_TOKEN
 docs = SimpleDirectoryReader(dir_project / 'data' / 'docs_lipp-faq').load_data()
 
 
-# Create embeddings based on HTML tags
-## Based on fixed window
+# Create embeddings
 model_embed = 'BAAI/bge-small-en-v1.5'
 
 Settings.embed_model = HuggingFaceEmbedding(model_name=model_embed)
 Settings.llm = None
+"""
+## Based on fixed context window
 Settings.chunk_size = 150
 Settings.chunk_overlap = 20
-
-index = VectorStoreIndex.from_documents(docs) # Creates vector store object
+index = VectorStoreIndex.from_documents(docs)
 """
+
 ## Based on HTML tags
 parser = HTMLNodeParser(tags = ['title', 'p', 'ul', 'ol', 'li'])
-#What output format is needed for nodes from all docs?
-nodes = parser.get_nodes_from_documents([docs[40]]) # one doc
-"""
+
+def create_html_based_index(docs):#: List[Document]):
+    # Extract nodes from all documents
+    all_nodes = []
+    for doc in docs:
+        nodes = parser.get_nodes_from_documents([doc])
+        all_nodes.extend(nodes)
+    
+    # Create vector index from nodes instead of documents
+    index = VectorStoreIndex(all_nodes)
+    return index
+
+index = create_html_based_index(docs)
+
 
 # Retrieval system
-top_k = 3 # Documents to retrieve
-similarity_cutoff = .5 # Minimum document similarity
+top_k = 5 # Documents to retrieve
+similarity_cutoff = .6 # Minimum document similarity
 
-retriever = VectorIndexRetriever(index=index, similarity_top_k=top_k)
+retriever = VectorIndexRetriever(
+  index=index,
+  similarity_top_k=top_k,
+  similarity_cutoff=similarity_cutoff)
 query_engine = RetrieverQueryEngine(retriever=retriever, node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=similarity_cutoff)],)
 
 
 # Demo queries
-#query = 'Where can I find market research reports?'
-query = 'Get market size on medical implants for diabetes'
+query = 'Where can I find market research reports?'
+#query = 'Get market size on medical implants for diabetes'
+#query = 'microsoft'
 #query = 'Am I an orange?'
 
 
