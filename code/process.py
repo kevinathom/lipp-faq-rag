@@ -51,8 +51,10 @@ retriever = VectorIndexRetriever(index=index, similarity_top_k=top_k)
 query_engine = RetrieverQueryEngine(retriever=retriever, node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=similarity_cutoff)],)
 
 
-# Demo query
-query = 'Where can I find market research reports?'
+# Demo queries
+#query = 'Where can I find market research reports?'
+query = 'Get market size on medical implants for diabetes'
+#query = 'Am I an orange?'
 
 
 # Vector response
@@ -62,7 +64,7 @@ print(response)
 
 # LLM prompt
 ragless_prompt = f"""
-[INST] As a virtual librarian consultant for business research tasks, communicate in clear, concise, accessible language. Include each suggested resource in a hyperlink.
+[INST] As a virtual librarian consultant for business research tasks, communicate in clear, concise, accessible language. Include each suggested resource in a hyperlink from the provided context.
 
 Please respond to this request: {query}
 
