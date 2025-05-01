@@ -78,7 +78,6 @@ query = "can't access Pitchbook"
 query = 'microsoft'
 query = 'Am I an orange?'
 
-
 # Vector query response
 response = query_engine.query(query)
 
@@ -88,16 +87,16 @@ context = 'Context:\n'
 for k in range(top_k):
   context = context + response.source_nodes[k].text + '\n\n'
 
-print(context)
+#print(context)
 
 
 # LLM prompt
 ragless_prompt = f"""
-[INST] As a virtual business research librarian, communicate in clear, concise, accessible language. Enclose each suggested resource name in a hyperlink from the provided context.
+[INST] As a virtual business research librarian, communicate in clear, concise, accessible language. Include a link from the provided context for each suggested resource. If the provided context is irrelevant, suggest sending business research questions to a Lippincott Business Librarian at lippincott@wharton.upenn.edu instead of suggesting resources.
 
 Please respond to this request: {query}
 
-End the response with this statement: "This is a model-generated response. For further assistance, please contact a Lippincott Business Librarian at lippincott@wharton.upenn.edu."
+End the response with this statement: "This response is model-generated, based on human librarian advice. For further assistance, please contact a Lippincott Business Librarian at lippincott@wharton.upenn.edu."
 [/INST]
 """
 ragful_prompt = ragless_prompt + context
