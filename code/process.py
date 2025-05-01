@@ -92,7 +92,7 @@ ragless_prompt = f"""
 
 Please respond to this request: {query}
 
-End the response with this statement: "For further assistance, please contact a Lippincott Business Librarian at lippincott@wharton.upenn.edu."
+End the response with this statement: "This is a model-generated response. For further assistance, please contact a Lippincott Business Librarian at lippincott@wharton.upenn.edu."
 [/INST]
 """
 ragful_prompt = ragless_prompt + context
