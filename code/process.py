@@ -88,7 +88,7 @@ print(context)
 
 # LLM prompt
 ragless_prompt = f"""
-[INST] As a virtual librarian consultant for business research tasks, communicate in clear, concise, accessible language. Include each suggested resource in a hyperlink from the provided context.
+[INST] As a virtual business research librarian, communicate in clear, concise, accessible language. Enclose each suggested resource name in a hyperlink from the provided context.
 
 Please respond to this request: {query}
 
