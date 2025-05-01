@@ -79,10 +79,15 @@ query = 'microsoft'
 query = 'Am I an orange?'
 
 
+# Vector query response
+response = query_engine.query(query)
+
+
 # RAG context for LLM prompt
 context = 'Context:\n'
 for k in range(top_k):
   context = context + response.source_nodes[k].text + '\n\n'
+
 print(context)
 
 
