@@ -1,5 +1,5 @@
 # lipp-faq-rag
-Exploring the value of developing a RAG model to support chat-style interaction with the Lippincott Library Business FAQ
+Exploring the value of developing a RAG system to support natural language querying of content in the [Lippincott Library Business FAQ](https://faq.library.upenn.edu/business/search/)
 
 # Resources
 - [Language Models 3: 🤗 Hugging Face with RAG and Open AI Web Search](https://github.com/ithaka/constellate-notebooks/blob/master/Applying-large-language-models/language-models-3.ipynb)
