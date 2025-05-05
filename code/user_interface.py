@@ -25,7 +25,7 @@ class InputResponseWindow(QMainWindow):
   
   def __init__(self):
     super().__init__()
-    self.setWindowTitle("Virtual Lippincott Business Research Agent")
+    self.setWindowTitle("Lippincott Library Virtual Business Research Agent")
     self.setGeometry(100, 100, 800, 600)  # Wider window for better readability
     
     # Central widget and main layout
@@ -80,18 +80,21 @@ class InputResponseWindow(QMainWindow):
     """Process the submitted text and display a response"""
     # Get the input text
     input_text = self.text_input.toPlainText()
+    print('input_text stored') # For standalone testing
     
     if not input_text.strip():
         self.response_display.setHtml("<p style='color:red'>Please enter some text first.</p>")
         return
+    print('input_text checked') # For UI crash testing
     
     # Run the user's input throught the RAG system and store the RAG's response
     exec(open(dir_project / 'code' / 'rag_system.py').read())
-    completion_markdown = your_processing_function(completion.choices[0].message.content)
-    #completion_markdown = '*test* **test** test' # For standalone testing
+    print('rag_system.py finished execution') # For UI crash testing
+    #completion_markdown = 'test *test* **test**' # For standalone testing
+    #completion_markdown = input_text # For standalone testing
     
     # Convert Markdown to HTML and display
-    self.response_display.setHtml(markdown.markdown(completion_markdown))
+    self.response_display.setHtml(markdown.markdown(completion_markdown + '\n\nThis response is model-generated, based on recommendations from human Business Librarians. You can contact a them at lippincott@wharton.upenn.edu.'))
 
 def main():
   app = QApplication(sys.argv)

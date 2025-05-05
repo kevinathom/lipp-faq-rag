@@ -82,32 +82,32 @@ query_engine = RetrieverQueryEngine(
 #query = 'microsoft'
 #query = 'Am I an orange?'
 query = input_text # from user_interface.py
+print('query complete') # For UI crash testing
 
 # Vector query response
 response = query_engine.query(query)
+print('response complete') # For UI crash testing
 
 
 # RAG context for LLM prompt
 context = 'Context:\n'
 for k in range(top_k):
   context = context + response.source_nodes[k].text + '\n\n'
-#print(context) # For standalone testing
+print('context complete') # For standalone testing
 
 
 # LLM prompt
-ragless_prompt = f"""
-[INST] As a virtual business research librarian, communicate in clear, concise, accessible language. Include a link from the provided context for each suggested resource. If the provided context is irrelevant, suggest sending business research questions to a Lippincott Business Librarian at lippincott@wharton.upenn.edu instead of suggesting resources.
-
-Please respond to this request: {query}
-
-End the response with this statement: "This response is model-generated, based on human librarian advice. For further assistance, please contact a Lippincott Business Librarian at lippincott@wharton.upenn.edu."
-[/INST]
-"""
+ragless_prompt = f'[INST] As a virtual business research librarian, communicate in clear, concise, accessible language. Include a link from the provided context for each suggested resource. If the provided context is irrelevant, suggest sending business research questions to a Lippincott Business Librarian instead of suggesting resources.\n\nPlease respond to this request: {query}[/INST]'
+print('ragless_prompt complete') # For UI crash testing
 ragful_prompt = ragless_prompt + context
+print('ragful_prompt complete') # For UI crash testing
 
 
 # Prompt the LLM
 client = InferenceClient(model='meta-llama/Llama-3.1-405B-Instruct', provider='nebius') # Llama 3.1-405B-Instruct
+print('specified client') # For UI crash testing
 
 completion = client.chat.completions.create(messages=[{'role': 'user', 'content': ragful_prompt}],)
-#print(completion.choices[0].message.content) # For standalone testing
+print('completion complete') # For UI crash testing
+completion_markdown = completion.choices[0].message.content
+#print(completion_markdown) # For standalone testing
