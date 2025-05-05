@@ -2,10 +2,18 @@
 """
 Created on Mon Apr 28 11:54:17 2025
 @author: kevinathom
+Purpose: Run the RAG system
 """
 
 # Dependencies
+## Environment
 from dotenv import load_dotenv
+#from pathlib import Path # For standalone testing
+
+#dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory | # For standalone testing
+load_dotenv(dotenv_path=dir_project / '.env') # See HF_TOKEN
+
+## Model
 from huggingface_hub import login
 from huggingface_hub import InferenceClient
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
@@ -16,10 +24,6 @@ from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.postprocessor import SimilarityPostprocessor
 from transformers import pipeline
 import urllib.request
-from pathlib import Path
-
-dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory
-load_dotenv(dotenv_path=dir_project / '.env') # See HF_TOKEN
 
 
 # Load documents
@@ -70,13 +74,14 @@ query_engine = RetrieverQueryEngine(
   )
 
 
-# Demo queries
-query = 'Where can I find market research reports?'
-query = 'Get market size on medical implants for diabetes'
-query = """I’m a graduate student at Upenn, and I’m currently researching Orolay (the apparel company known for its “Amazon coat”). I’m trying to find the following information, ideally from 2012 to 2025 if available: Annual revenue (sales) of Orolay; Best-selling product(s); Information on Orolay’s main customer"""
-query = "can't access Pitchbook"
-query = 'microsoft'
-query = 'Am I an orange?'
+# Query (either text examples or from user_interface.py)
+#query = 'Where can I find market research reports?'
+#query = 'Get market size on medical implants for diabetes'
+#query = """I’m a graduate student at Upenn, and I’m currently researching Orolay (the apparel company known for its “Amazon coat”). I’m trying to find the following information, ideally from 2012 to 2025 if available: Annual revenue (sales) of Orolay; Best-selling product(s); Information on Orolay’s main customer"""
+#query = "can't access Pitchbook"
+#query = 'microsoft'
+#query = 'Am I an orange?'
+query = input_text # from user_interface.py
 
 # Vector query response
 response = query_engine.query(query)
@@ -87,7 +92,7 @@ context = 'Context:\n'
 for k in range(top_k):
   context = context + response.source_nodes[k].text + '\n\n'
 
-#print(context)
+#print(context) # For standalone testing
 
 
 # LLM prompt
@@ -106,4 +111,4 @@ ragful_prompt = ragless_prompt + context
 client = InferenceClient(model='meta-llama/Llama-3.1-405B-Instruct', provider='nebius') # Llama 3.1-405B-Instruct
 
 completion = client.chat.completions.create(messages=[{'role': 'user', 'content': ragful_prompt}],)
-print(completion.choices[0].message.content)
+#print(completion.choices[0].message.content) # For standalone testing
