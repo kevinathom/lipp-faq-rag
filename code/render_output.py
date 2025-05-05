@@ -10,7 +10,7 @@ import markdown
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTextBrowser
 import sys
 
-def render_markdown_pyqt(content=markdown_content, title="Markdown Content Viewer"):
+def render_markdown_pyqt(markdown_content, title="Markdown Content Viewer"):
     # Convert Markdown to HTML
     html_content = markdown.markdown(markdown_content)
     
@@ -27,4 +27,4 @@ def render_markdown_pyqt(content=markdown_content, title="Markdown Content Viewe
     window.show()
     sys.exit(app.exec_())
 
-render_markdown_pyqt(content=completion.choices[0].message.content, title="Virtual Business Library Response")
+render_markdown_pyqt(markdown_content=completion.choices[0].message.content, title="Virtual Business Library Response")
