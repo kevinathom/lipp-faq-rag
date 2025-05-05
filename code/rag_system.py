@@ -91,7 +91,6 @@ response = query_engine.query(query)
 context = 'Context:\n'
 for k in range(top_k):
   context = context + response.source_nodes[k].text + '\n\n'
-
 #print(context) # For standalone testing
 
 
