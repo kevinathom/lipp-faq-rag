@@ -8,7 +8,6 @@ Purpose: Provide a user interface for the RAG system
 # Dependencies
 ## Environment
 from pathlib import Path
-import subprocess
 
 dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory
 
@@ -87,8 +86,9 @@ class InputResponseWindow(QMainWindow):
         return
     
     # Run the user's input throught the RAG system and store the RAG's response
-    subprocess.run(['python', dir_project / 'code' / 'rag_system.py'], capture_output=True, text=True)
+    exec(open(dir_project / 'code' / 'rag_system.py').read())
     completion_markdown = your_processing_function(completion.choices[0].message.content)
+    #completion_markdown = '*test* **test** test' # For standalone testing
     
     # Convert Markdown to HTML and display
     self.response_display.setHtml(markdown.markdown(completion_markdown))
