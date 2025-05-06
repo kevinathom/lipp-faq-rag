@@ -37,6 +37,7 @@ def llm_query(query):
   print('ragless_prompt complete') # For UI crash testing
   ragful_prompt = ragless_prompt + context
   print('ragful_prompt complete') # For UI crash testing
+  return(ragful_prompt)
 
 
 def llm_completion(ragful_prompt):
