@@ -96,7 +96,7 @@ class InputResponseWindow(QMainWindow):
     #completion_markdown = input_text # For standalone testing
     
     # Convert Markdown to HTML and display
-    self.response_display.setHtml(markdown.markdown(completion_markdown + '\n\nThis response is model-generated, based on recommendations from human Business Librarians. You can contact a them at lippincott@wharton.upenn.edu.'))
+    self.response_display.setHtml(markdown.markdown(completion_markdown + '\n\nThis response is model-generated, based on recommendations from human Business Librarians. You can contact them at lippincott@wharton.upenn.edu.'))
 
 def main():
   app = QApplication(sys.argv)
