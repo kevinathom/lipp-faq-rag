@@ -9,7 +9,7 @@ Purpose: Provide a user interface for the RAG system
 ## Environment
 #from pathlib import Path # For standalone testing
 
-#dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory # For standalone testing
+#dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory | # For standalone testing
 
 ## User interface
 import markdown
@@ -88,8 +88,9 @@ class InputResponseWindow(QMainWindow):
     print('input_text checked') # For UI crash testing
     
     # Run the user's input throught the RAG system and store the RAG's response
-    exec(open(dir_project / 'code' / 'rag_system.py').read())
-    print('rag_system.py finished execution') # For UI crash testing
+    #exec(open(dir_project / 'code' / 'rag_system.py').read()) # Call LLM via file
+    llm_query(input_text) # Call LLM via function
+    print('llm_query finished execution') # For UI crash testing
     #completion_markdown = 'test *test* **test**' # For standalone testing
     #completion_markdown = input_text # For standalone testing
     
