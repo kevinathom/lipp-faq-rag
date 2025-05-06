@@ -7,7 +7,7 @@
 - [Markdown Live Preview](https://markdownlivepreview.com/)
 
 ## Note  
-I compile via this line in terminal: `python -m PyInstaller -F --add-data "..\.env;." --add-data "..\data\docs_lipp-faq\*.html;." --onefile -w 'rag_system.py'`
+I compile via this line in terminal: `python -m PyInstaller --onefile --add-data ".env;." --add-data "data/docs_lipp-faq/*.html;." "code/rag_system.py"`
 
 ## Algorithm  
 Note: parse.py can split a LibAnswers FAQ export into distinct HTML files for each Q. I used it to create the files that form the RAG context.
