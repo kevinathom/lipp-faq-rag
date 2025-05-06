@@ -14,7 +14,7 @@ load_dotenv(dotenv_path=dir_project / '.env') # See HF_TOKEN
 
 
 # Generate retrieval system
-exec(open(dir_project / 'code' / 'llm_func.py').read())
+exec(open(dir_project / 'code' / 'retrieval_system.py').read())
 
 # Create functions for prompt generation and LLM call
 exec(open(dir_project / 'code' / 'llm_func.py').read())
