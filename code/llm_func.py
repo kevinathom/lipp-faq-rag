@@ -39,7 +39,7 @@ def llm_query(query):
   print('ragful_prompt complete') # For UI crash testing
 
 
-def llm_completion(ragful_prompt)
+def llm_completion(ragful_prompt):
   """Submit a prompt to and retrieve a response from the LLM"""
   # Prompt the LLM
   client = InferenceClient(model='meta-llama/Llama-3.1-405B-Instruct', provider='nebius') # Llama 3.1-405B-Instruct
