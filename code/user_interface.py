@@ -7,9 +7,9 @@ Purpose: Provide a user interface for the RAG system
 
 # Dependencies
 ## Environment
-from pathlib import Path
+#from pathlib import Path # For standalone testing
 
-dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory
+#dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory # For standalone testing
 
 ## User interface
 import markdown
