@@ -20,7 +20,7 @@ from huggingface_hub import InferenceClient
 
 
 def llm_query(query):
-  """Take a query, retrieve context, compile a prompt,
+  """Take a query, retrieve context, and compile a prompt,
   and retrieve a response from the LLM"""
   # Vector query response
   response = query_engine.query(query)
@@ -37,7 +37,10 @@ def llm_query(query):
   print('ragless_prompt complete') # For UI crash testing
   ragful_prompt = ragless_prompt + context
   print('ragful_prompt complete') # For UI crash testing
-  
+
+
+def llm_completion(ragful_prompt)
+  """Submit a prompt to and retrieve a response from the LLM"""
   # Prompt the LLM
   client = InferenceClient(model='meta-llama/Llama-3.1-405B-Instruct', provider='nebius') # Llama 3.1-405B-Instruct
   print('specified client') # For UI crash testing
