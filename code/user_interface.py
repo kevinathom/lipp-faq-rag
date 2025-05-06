@@ -6,12 +6,6 @@ Purpose: Provide a user interface for the RAG system
 """
 
 # Dependencies
-## Environment
-#from pathlib import Path # For standalone testing
-
-#dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory | # For standalone testing
-
-## User interface
 import markdown
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
@@ -80,25 +74,17 @@ class InputResponseWindow(QMainWindow):
     """Process the submitted text and display a response"""
     # Get the input text
     input_text = self.text_input.toPlainText()
-    print('input_text stored') # For standalone testing
     
     if not input_text.strip():
         self.response_display.setHtml("<p style='color:red'>Please enter some text first.</p>")
         return
-    print('input_text checked') # For UI crash testing
     
     # Run the user's input throught the RAG system and store the RAG's response
-    #exec(open(dir_project / 'code' / 'rag_system.py').read()) # Call LLM via file
     ragful_prompt = llm_query(input_text)
-    print(ragful_prompt) # For UI crash testing
     completion_markdown = llm_completion(ragful_prompt)
-    print(completion_markdown) # For UI crash testing
-    #completion_markdown = 'test *test* **test**' # For standalone testing
-    #completion_markdown = input_text # For standalone testing
     
     # Convert Markdown to HTML and display
     completion_html = markdown.markdown(completion_markdown + '\n\nThis response is model-generated, based on recommendations from human Business Librarians. You can contact them at lippincott@wharton.upenn.edu.')
-    print('converted completion_markdown to HTML') # For UI crash testing
     self.response_display.setHtml(completion_html)
 
 def main():
