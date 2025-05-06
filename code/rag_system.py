@@ -7,22 +7,15 @@ Purpose: Run the RAG system
 
 # Dependencies
 ## Environment
-from dotenv import load_dotenv
+#from dotenv import load_dotenv # For standalone testing
 #from pathlib import Path # For standalone testing
 
 #dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory | # For standalone testing
-load_dotenv(dotenv_path=dir_project / '.env') # See HF_TOKEN
+#load_dotenv(dotenv_path=dir_project / '.env') # See HF_TOKEN | # For standalone testing
 
 ## Model
 #from huggingface_hub import login # For standalone testing
 from huggingface_hub import InferenceClient
-#from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-#from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
-#from llama_index.core.retrievers import VectorIndexRetriever
-#from llama_index.core.query_engine import RetrieverQueryEngine
-#from llama_index.core.postprocessor import SimilarityPostprocessor
-#from transformers import pipeline
-#import urllib.request
 
 # Query (either text examples or from user_interface.py)
 #query = 'Where can I find market research reports?'
