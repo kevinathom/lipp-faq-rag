@@ -2,23 +2,15 @@
 """
 Created on Mon May 05 18:01 2025
 @author: kevinathom
-Purpose: Build the retrieval system seperately,
-         to avoid repeating the procedure over multiple queries
+Purpose: Build the retrieval system.
+         (Can run once per session.)
 """
 
 # Dependencies
-## Environment
-from dotenv import load_dotenv
-from pathlib import Path
-
-dir_project = Path('./GitHub/lipp-faq-rag') # Repository directory
-load_dotenv(dotenv_path=dir_project / '.env') # See HF_TOKEN
-
-## Retrieval
 from huggingface_hub import login
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
-#from llama_index.core.node_parser import HTMLNodeParser # For HTML parsing
+#from llama_index.core.node_parser import HTMLNodeParser # For HTML parser
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.postprocessor import SimilarityPostprocessor
@@ -70,11 +62,3 @@ query_engine = RetrieverQueryEngine(
   retriever=retriever,
   node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=similarity_cutoff)],
   )
-
-
-# Generate function for context retrival and LLM call
-exec(open(dir_project / 'code' / 'llm_func.py').read())
-
-
-# Run user interface
-exec(open(dir_project / 'code' / 'user_interface.py').read())
