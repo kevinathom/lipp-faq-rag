@@ -90,13 +90,16 @@ class InputResponseWindow(QMainWindow):
     # Run the user's input throught the RAG system and store the RAG's response
     #exec(open(dir_project / 'code' / 'rag_system.py').read()) # Call LLM via file
     ragful_prompt = llm_query(input_text)
+    print(ragful_prompt) # For UI crash testing
     completion_markdown = llm_completion(ragful_prompt)
-    print('llm_query finished execution') # For UI crash testing
+    print(completion_markdown) # For UI crash testing
     #completion_markdown = 'test *test* **test**' # For standalone testing
     #completion_markdown = input_text # For standalone testing
     
     # Convert Markdown to HTML and display
-    self.response_display.setHtml(markdown.markdown(completion_markdown + '\n\nThis response is model-generated, based on recommendations from human Business Librarians. You can contact them at lippincott@wharton.upenn.edu.'))
+    completion_html = markdown.markdown(completion_markdown + '\n\nThis response is model-generated, based on recommendations from human Business Librarians. You can contact them at lippincott@wharton.upenn.edu.')
+    print('converted completion_markdown to HTML') # For UI crash testing
+    self.response_display.setHtml(completion_html)
 
 def main():
   app = QApplication(sys.argv)
