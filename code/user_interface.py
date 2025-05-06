@@ -89,7 +89,8 @@ class InputResponseWindow(QMainWindow):
     
     # Run the user's input throught the RAG system and store the RAG's response
     #exec(open(dir_project / 'code' / 'rag_system.py').read()) # Call LLM via file
-    llm_query(input_text) # Call LLM via function
+    ragful_prompt = llm_query(input_text)
+    completion_markdown = llm_completion(ragful_prompt)
     print('llm_query finished execution') # For UI crash testing
     #completion_markdown = 'test *test* **test**' # For standalone testing
     #completion_markdown = input_text # For standalone testing
