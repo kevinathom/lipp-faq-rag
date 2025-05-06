@@ -71,5 +71,10 @@ query_engine = RetrieverQueryEngine(
   node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=similarity_cutoff)],
   )
 
-# Run user interface and LLM
+
+# Generate function for context retrival and LLM call
+exec(open(dir_project / 'code' / 'llm_func.py').read())
+
+
+# Run user interface
 exec(open(dir_project / 'code' / 'user_interface.py').read())
