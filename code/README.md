@@ -6,8 +6,8 @@
 - [LlamaIndex: Chunking Strategies for Large Language Models. Part — 1](https://medium.com/@bavalpreetsinghh/llamaindex-chunking-strategies-for-large-language-models-part-1-ded1218cfd30)
 - [Markdown Live Preview](https://markdownlivepreview.com/)
 
-## Note  
-I compile via this line in terminal: `python -m PyInstaller --onefile --add-data ".env;." --add-data "data/docs_lipp-faq/*.html;." --hidden-import=tiktoken_ext.openai_public --hidden-import=tiktoken_ext --onefile "code/rag_system.py"`
+## Executable version 
+This line, run in the terminal, may make an executable file via PyInstaller: `python -m PyInstaller --add-data ".env;." --add-data "data/docs_lipp-faq/*.html;." --hidden-import=tiktoken_ext.openai_public --hidden-import=tiktoken_ext --onefile --noconsole "code/rag_system.py"`
 
 ## Algorithm  
 Note: parse.py can split a LibAnswers FAQ export into distinct HTML files for each Q. I used it to create the files that form the RAG context.
