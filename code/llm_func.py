@@ -6,7 +6,8 @@ Purpose: Functions to build a prompt and run the LLM
 """
 
 # Dependencies
-from huggingface_hub import InferenceClient
+from huggingface_hub import InferenceClient # For HuggingFace API
+from openai import OpenAI # For Nebius API
 
 
 def llm_query(query):
@@ -25,13 +26,20 @@ def llm_query(query):
   ragful_prompt = ragless_prompt + context
   return(ragful_prompt)
 
+# Select LLM
+model_completion = 'meta-llama/Llama-3.1-405B-Instruct' # Llama 3.1-405B-Instruct
 
 def llm_completion(ragful_prompt):
   """Submit a prompt to and retrieve a response from the LLM"""
-  # Select LLM
-  client = InferenceClient(model='meta-llama/Llama-3.1-405B-Instruct', provider='nebius') # Llama 3.1-405B-Instruct
+
+  # Select completion service
+  #client = InferenceClient(model=model_completion, provider='nebius') # Nebius via HuggingFace
+  client = OpenAI(base_url="https://api.studio.nebius.com/v1/", api_key=os.environ.get("NEBIUS_API_KEY"),) # Nebius direct
   
   # Retrieve LLM completion
-  completion = client.chat.completions.create(messages=[{'role': 'user', 'content': ragful_prompt}],)
+  completion = client.chat.completions.create(
+    model=model_completion # Omit when using Nebius via HuggingFace
+    messages=[{'role': 'user', 'content': ragful_prompt}],
+    )
   completion_markdown = completion.choices[0].message.content
   return(completion_markdown)
