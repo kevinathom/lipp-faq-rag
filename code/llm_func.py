@@ -6,7 +6,7 @@ Purpose: Functions to build a prompt and run the LLM
 """
 
 # Dependencies
-from huggingface_hub import InferenceClient # For HuggingFace API
+#from huggingface_hub import InferenceClient # For HuggingFace API
 from openai import OpenAI # For Nebius API
 
 
