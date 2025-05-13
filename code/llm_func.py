@@ -38,7 +38,7 @@ def llm_completion(ragful_prompt):
   
   # Retrieve LLM completion
   completion = client.chat.completions.create(
-    model=model_completion # Omit when using Nebius via HuggingFace
+    model=model_completion, # Omit when using Nebius via HuggingFace
     messages=[{'role': 'user', 'content': ragful_prompt}],
     )
   completion_markdown = completion.choices[0].message.content
