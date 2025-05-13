@@ -19,7 +19,7 @@ Note: parse.py can split a LibAnswers FAQ export into distinct HTML files for ea
 1. retrieval_system.py
 	1. Loads data
 	1. Creates embeddings (based on fixed context window, although it has code for parsing HTML)
-	1. Builds a tretrival system
+	1. Builds a retrieval system
 1. llm_func.py
    1. Defines the function llm_query
       1. Takes a query string
