@@ -8,7 +8,7 @@
 - [Markdown Live Preview](https://markdownlivepreview.com/)
 
 ## Executable version 
-This line, run in the terminal, may make an executable file via PyInstaller: `python -m PyInstaller --add-data ".env;." --add-data "data/docs_lipp-faq/*.html;." --hidden-import=tiktoken_ext.openai_public --hidden-import=tiktoken_ext --onefile --noconsole "code/rag_system.py"`
+This line, run in the terminal, may make an executable file via PyInstaller: `python -m PyInstaller --add-data ".env;." --add-data "data/docs_lipp-faq/*.html;data/docs_lipp-faq" --hidden-import=tiktoken_ext.openai_public --hidden-import=tiktoken_ext --onefile --noconsole "code/rag_system.py"`
 
 ## Algorithm  
 Note: parse.py can split a LibAnswers FAQ export into distinct HTML files for each Q. I used it to create the files that form the RAG context.
