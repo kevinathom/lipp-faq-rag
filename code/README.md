@@ -3,6 +3,7 @@
 ## Resources  
 - [Convert Python Script to .exe File](https://www.geeksforgeeks.org/convert-python-script-to-exe-file/)
 - [Examples of using the Nebius AI Studio API](https://docs.nebius.com/studio/api/examples)
+- [GPT-4.1 Prompting Guide](https://cookbook.openai.com/examples/gpt4-1_prompting_guide)
 - [Language Models 3: 🤗 Hugging Face with RAG and Open AI Web Search](https://github.com/ithaka/constellate-notebooks/blob/master/Applying-large-language-models/language-models-3.ipynb)
 - [LlamaIndex: Chunking Strategies for Large Language Models. Part — 1](https://medium.com/@bavalpreetsinghh/llamaindex-chunking-strategies-for-large-language-models-part-1-ded1218cfd30)
 - [Markdown Live Preview](https://markdownlivepreview.com/)
